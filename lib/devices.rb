@@ -76,7 +76,20 @@ module Devices
   # @param [Hash] options hash containing the attributes you want to modify.
   #   such as name, tags, longitude, latitude. A full list is found on the official Meraki API Docs
   # @return [Hash] a hash containing the devices new attribute set
+  # @deprecated Please use update_device
   def update_device_attributes(_network_id, device_serial, options)
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    update_device(device_serial, options)
+  end
+
+
+  # Update a single device
+  # @param [String] device_serial meraki serial number of the device you want to modify
+  # @param [Hash] options hash containing the attributes you want to modify.
+  #   such as name, tags, longitude, latitude. A full list is found on the official Meraki API Docs
+  # @return [Hash] a hash containing the devices new attribute set
+  def update_device(device_serial, options)
     raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
 
     make_api_call("/devices/#{device_serial}", :put, options)

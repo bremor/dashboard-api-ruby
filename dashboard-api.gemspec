@@ -27,6 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'webmock', '>= 2.1.0'
   s.add_development_dependency 'yard', '~> 0.9.11'
 
-  s.add_runtime_dependency 'httparty', '~> 0.18.0'
+  s.add_runtime_dependency 'httparty', '>= 0.18.0'
   s.add_runtime_dependency 'nitlink', '~> 1.1'
 end

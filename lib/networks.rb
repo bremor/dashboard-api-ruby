@@ -157,13 +157,12 @@ module Networks
   # Unbind a single network from a configuration template
   # @param [String] network_id the network that you want to unbind from it's template
   # @return [Integer] HTTP Code
-  # @deprecated Use #split_from_template instead
   def unbind_network_to_template(network_id)
-    split_network_from_template(network_id)
+    make_api_call("/networks/#{network_id}/unbind", :post)
   end
 
-  # Split a network from a configuration template
-  # @param [String] network_id the network that you want to unbind from it's template
+  # Split a network from a combined network into individual networks
+  # @param [String] network_id the network that you want to split
   # @return [Integer] HTTP Code
   def split_network_from_template(network_id)
     make_api_call("/networks/#{network_id}/split", :post)

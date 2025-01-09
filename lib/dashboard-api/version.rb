@@ -4,5 +4,5 @@
 # @author Joe Letizia, Shane Short
 module DashboardAPIVersion
   # Current version number of the gem
-  VERSION = '2.0.0'.freeze
+  VERSION = '2.0.1'.freeze
 end

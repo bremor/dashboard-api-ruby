@@ -16,8 +16,8 @@ module Clients
   # Return an array of connected clients in the target network
   # @param [String] network_id the network UUID for the target network
   # @return [Array] an array of hashes with each client in the network
-  def list_clients_in_network(network_id)
-    make_api_call(("/networks/#{network_id}/clients"), :get)
+  def list_clients_in_network(network_id, per_page = 10)
+    make_api_call(("/networks/#{network_id}/clients?perPage=#{per_page}"), :get)
   end
 
 end

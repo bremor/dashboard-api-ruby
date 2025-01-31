@@ -13,8 +13,10 @@ module Devices
   # List all devices in a given organization
   # @param [String] org_id the organization that has the devices claimed.
   # @return [Array] array of hashes containing device information for all devices in the org.
-  def list_devices_for_organization(org_id)
-    make_api_call("/organizations/#{org_id}/devices", :get)
+  def list_devices_for_organization(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{org_id}/devices", :get, options)
   end
 
   # Device information for a specified device

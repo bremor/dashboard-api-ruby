@@ -15,9 +15,13 @@ module Clients
 
   # Return an array of connected clients in the target network
   # @param [String] network_id the network UUID for the target network
+  # @param [Hash] options hash containing the attributes you want to modify.
+  #   such as mac, vlan, ip, perPage. A full list is found on the official Meraki API Docs
   # @return [Array] an array of hashes with each client in the network
-  def list_clients_in_network(network_id, per_page = 10)
-    make_api_call(("/networks/#{network_id}/clients?perPage=#{per_page}"), :get)
+  def list_clients_in_network(network_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+    
+    make_api_call(("/networks/#{network_id}/clients"), :get, , options)
   end
 
 end

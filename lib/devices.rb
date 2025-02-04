@@ -12,6 +12,8 @@ module Devices
 
   # List all devices in a given organization
   # @param [String] org_id the organization that has the devices claimed.
+  # @param [Hash] options hash containing the attributes you want to modify.
+  #   such as serial, tags, model, networkIds. A full list is found on the official Meraki API Docs
   # @return [Array] array of hashes containing device information for all devices in the org.
   def list_devices_for_organization(org_id, options: {})
     raise 'Options were not passed as a Hash' unless options.is_a?(Hash)

@@ -21,7 +21,7 @@ module Clients
   def list_clients_in_network(network_id, options: {})
     raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
     
-    make_api_call(("/networks/#{network_id}/clients"), :get, , options)
+    make_api_call(("/networks/#{network_id}/clients"), :get, options)
   end
 
 end

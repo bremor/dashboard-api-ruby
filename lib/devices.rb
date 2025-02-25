@@ -63,6 +63,16 @@ module Devices
     make_api_call("/organizations/#{organization_id}/appliance/uplink/statuses", :get, options)
   end
 
+  # List the uplink status of every Meraki MX, MG and Z series devices in the organization
+  # @param [String] organization_id organization where the uplinks exist
+  # @param [Hash] options: optional parameters
+  # @return [Array] an array of hashes for each device and it's uplink attributes
+  def get_organization_uplinks_statuses(organization_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{organization_id}/uplinks/statuses", :get, options)
+  end
+  
   # Update a single devices attributes
   # @param [String] _network_id dashboard network id where the device exists (deprecated)
   # @param [String] device_serial meraki serial number of the device you want to modify

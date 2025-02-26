@@ -63,14 +63,14 @@ module Devices
     make_api_call("/organizations/#{organization_id}/appliance/uplink/statuses", :get, options)
   end
 
-  # List the uplink status of every Meraki MX, MG and Z series devices in the organization
+  # List the uplink status of every Meraki MG series devices in the organization
   # @param [String] organization_id organization where the uplinks exist
   # @param [Hash] options: optional parameters
   # @return [Array] an array of hashes for each device and it's uplink attributes
-  def get_organization_uplinks_statuses(organization_id, options: {})
+  def get_organization_cellular_gateway_uplink_stats(organization_id, options: {})
     raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
 
-    make_api_call("/organizations/#{organization_id}/uplinks/statuses", :get, options)
+    make_api_call("/organizations/#{organization_id}/cellularGateway/uplink/statuses", :get, options)
   end
 
   # List LLDP and CDP information for a device

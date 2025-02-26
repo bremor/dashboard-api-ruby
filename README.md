@@ -1,4 +1,4 @@
-# Dashboard API v2.0.5
+# Dashboard API v2.0.6
 [![Build Status](https://travis-ci.org/jletizia/dashboardapi.svg?branch=master)](https://travis-ci.org/jletizia/dashboardapi)
 [![Coverage Status](https://coveralls.io/repos/github/jletizia/dashboardapi/badge.svg?branch=master)](https://coveralls.io/github/jletizia/dashboardapi?branch=master)
 [![Code Climate](https://codeclimate.com/github/jletizia/dashboardapi/badges/gpa.svg)](https://codeclimate.com/github/jletizia/dashboardapi)

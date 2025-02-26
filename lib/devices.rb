@@ -72,6 +72,13 @@ module Devices
 
     make_api_call("/organizations/#{organization_id}/uplinks/statuses", :get, options)
   end
+
+  # List LLDP and CDP information for a device
+  # @param [String] device_serial meraki serial number for the device to get cdp and lldp neighbours for
+  # @return [Array] a hash of ports for where a neighbour was found
+  def get_device_lldp_cdp(device_serial)
+    make_api_call("/devices/#{device_serial}/lldpCdp", :get)
+  end
   
   # Update a single devices attributes
   # @param [String] _network_id dashboard network id where the device exists (deprecated)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Devices section of the Meraki Dashboard API
-# @author Joe Letizia, Shane Short
+# @author Joe Letizia, Shane Short, Brendan Moran
 module Devices
   # List all devices in a given network
   # @param [String] network_id network that you want to get devices for
@@ -21,6 +21,17 @@ module Devices
     make_api_call("/organizations/#{org_id}/devices", :get, options)
   end
 
+  # List the availability information for devices in an organization. The data returned by this endpoint is updated every 5 minutes.
+  # @param [String] org_id the organization that has the devices claimed.
+  # @param [Hash] options hash containing the attributes you want to modify.
+  #   such as serial, tags, productTypes, networkIds. A full list is found on the official Meraki API Docs
+  # @return [Array] array of hashes containing device availability for all devices in the org.
+  def get_organization_devices_availabilities(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{org_id}/devices/availabilities", :get, options)
+  end
+  
   # Device information for a specified device
   # @param [String] _network_id the network id where the device exists
   # @param [String] device_serial the meraki serial number of the device you want to get

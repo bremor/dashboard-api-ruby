@@ -18,7 +18,7 @@ module Switchports
   def get_switch_ports_by_switch(org_id, options: {})
     raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
     
-    make_api_call("/organizations/#{org_id}/switch/ports/bySwitch", :get)
+    make_api_call("/organizations/#{org_id}/switch/ports/bySwitch", :get, options)
   end
   
   # Get configuration for a single switch port

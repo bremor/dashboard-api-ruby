@@ -10,6 +10,17 @@ module Switchports
     make_api_call("/devices/#{device_serial}/switch/ports", :get)
   end
 
+  # Get configuration for switchports by switch switch
+  # @param [String] org_id the organization that has the devices claimed.
+  # @param [Hash] options hash containing the attributes you want to modify.
+  #   such as serial, name, networkIds. A full list is found on the official Meraki API Docs  
+  # @return [Array] an array of Hashes, each containing the switches attributes / configuration
+  def get_switch_ports_by_switch(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+    
+    make_api_call("/organizations/#{org_id}/switch/ports/bySwitch", :get)
+  end
+  
   # Get configuration for a single switch port
   # @param [String] device_serial meraki serial number of the switch
   # @param [Integer] port_number port number you want to modify

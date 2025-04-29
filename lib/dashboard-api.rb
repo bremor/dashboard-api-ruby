@@ -87,7 +87,7 @@ class DashboardAPI
         resource = DashboardAPI.send(http_method, endpoint_url, options)
         raise if resource.code == 429 && attempt <= 5
       rescue RuntimeError
-        attempt.increment!
+        attempt += 1
         puts "retrying after"
         puts resource.headers["Retry-After"].to_i
         sleep resource.headers["Retry-After"].to_i

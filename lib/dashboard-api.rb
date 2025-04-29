@@ -86,8 +86,6 @@ class DashboardAPI
       raise if resource.code == 429 && attempt <= 5
     rescue RuntimeError
       attempt += 1
-      puts "retrying after"
-      puts resource.headers["Retry-After"].to_i
       sleep resource.headers["Retry-After"].to_i
       retry
     end

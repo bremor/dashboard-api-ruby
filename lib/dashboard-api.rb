@@ -80,19 +80,20 @@ class DashboardAPI
     options[:base_uri] = base_uri if base_uri
     options[:debug_output] = $stdout if debug_enabled
 
+    attempt = 1
+    begin
+      resource = DashboardAPI.send(http_method, endpoint_url, options)
+      raise if resource.code == 429 && attempt <= 5
+    rescue RuntimeError
+      attempt += 1
+      puts "retrying after"
+      puts resource.headers["Retry-After"].to_i
+      sleep resource.headers["Retry-After"].to_i
+      retry
+    end
+    
     case http_method
     when :get
-      attempt = 1
-      begin
-        resource = DashboardAPI.send(http_method, endpoint_url, options)
-        raise if resource.code == 429 && attempt <= 5
-      rescue RuntimeError
-        attempt += 1
-        puts "retrying after"
-        puts resource.headers["Retry-After"].to_i
-        sleep resource.headers["Retry-After"].to_i
-        retry
-      end
       object = parse_response!(resource)
       if object.is_a? Array
         page_count = 1
@@ -106,11 +107,8 @@ class DashboardAPI
       else
         object
       end
-    when :post, :put, :delete
-      res = DashboardAPI.send(http_method, endpoint_url, options)
-      parse_response!(res)
     else
-      raise 'Invalid HTTP Method. Only GET, POST, PUT and DELETE are supported.'
+      parse_response!(resource)      
     end
   end
 end

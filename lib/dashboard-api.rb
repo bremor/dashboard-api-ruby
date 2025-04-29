@@ -82,7 +82,17 @@ class DashboardAPI
 
     case http_method
     when :get
-      resource = DashboardAPI.send(http_method, endpoint_url, options)
+      attempt = 1
+      begin
+        resource = DashboardAPI.send(http_method, endpoint_url, options)
+        raise if resource.code == 429 && attempt <= 5
+      rescue RuntimeError
+        attempt.increment!
+        puts "retrying after"
+        puts resource.headers["Retry-After"].to_i
+        sleep resource.headers["Retry-After"].to_i
+        retry
+      end
       object = parse_response!(resource)
       if object.is_a? Array
         page_count = 1

@@ -52,7 +52,7 @@ class DashboardAPI
 
     begin
       response = JSON.parse(response_object.body)
-      raise "Bad Request due to the following error(s): #{response['errors']}" if response.is_a?(Hash) && response['errors']
+      raise "Bad Request due to the following error(s): #{response['errors']}" if response.is_a?(Hash) && response['errors'].present?
 
       response
     rescue JSON::ParserError

@@ -21,6 +21,17 @@ module Devices
     make_api_call("/organizations/#{org_id}/devices", :get, options)
   end
 
+  # Return the device inventory for an organization
+  # @param [String] org_id the organization that has the inventory.
+  # @param [Hash] options hash containing the attributes you want to modify.
+  #   such as serial, tags, model, networkIds. A full list is found on the official Meraki API Docs
+  # @return [Array] array of hashes containing inventory in the org.
+  def get_organization_inventory_devices(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{org_id}/inventory/devices", :get, options)
+  end    
+
   # List the availability information for devices in an organization. The data returned by this endpoint is updated every 5 minutes.
   # @param [String] org_id the organization that has the devices claimed.
   # @param [Hash] options hash containing the attributes you want to modify.

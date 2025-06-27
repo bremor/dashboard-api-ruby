@@ -185,4 +185,19 @@ module Networks
   def uplink_traffic_shaping(network_id)
     make_api_call("/networks/#{network_id}/appliance/trafficShaping/uplinkBandwidth", :get)
   end
+  
+  # List the ThousandEyes agent configurations under this organization.
+  # @param [String] org_id: dashboard organization ID
+  # @return [Array] an array of hashes containing the thousandeyes agent details
+  def get_thousandeyes_networks(org_id)
+        make_api_call("/organizations/#{org_id}/extensions/thousandEyes/networks", :get)
+  end
+
+  # List the ThousandEyes agent configurations under this organization.
+  # @param [String] org_id: dashboard organization ID
+  # @param [String] network_id dashboard network ID
+  # @return [Array] a hash containing the thousandeyes agent details
+  def get_thousandeyes_network(org_id, network_id)
+        make_api_call("/organizations/#{org_id}/extensions/thousandEyes/networks/#{network_id}", :get)
+  end  
 end

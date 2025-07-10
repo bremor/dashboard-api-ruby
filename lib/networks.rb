@@ -195,9 +195,19 @@ module Networks
 
   # List the ThousandEyes agent configurations under this organization.
   # @param [String] org_id: dashboard organization ID
-  # @param [String] network_id dashboard network ID
+  # @param [String] network_id: dashboard network ID
   # @return [Array] a hash containing the thousandeyes agent details
   def get_thousandeyes_network(org_id, network_id)
         make_api_call("/organizations/#{org_id}/extensions/thousandEyes/networks/#{network_id}", :get)
-  end  
+  end
+
+  # Add a ThousandEyes agent for this network.
+  # @param [String] org_id: dashboard organization ID
+  # @param [String] network_id: dashboard network ID
+  # @return [Array] a hash containing details of the new thousandeyes agent
+  def create_thousandeyes_network(org_id, network_id)
+    body = { enabled: true, networkId: network_id }
+    make_api_call("/organizations/#{org_id}/extensions/thousandEyes/networks", :post, body)
+  end
+  
 end

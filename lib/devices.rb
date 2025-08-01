@@ -162,4 +162,23 @@ module Devices
     options = { serial: device_serial }
     make_api_call("/networks/#{network_id}/devices/remove", :post, options)
   end
+
+  # Enqueue a job to execute a speed test from a device
+  # @param [String] device_serial: the meraki serial number of the device you want to create
+  #   a speed test for
+  # @param [String] interface: the meraki wan interface you want to use for a speed test
+  # @return [Hash] a hash containing all of the speed test attributes
+  def create_speed_test(device_serial, interface)
+    options = { interface: interface }
+    make_api_call("/devices/#{device_serial}/liveTools/speedTest", :post, options)
+  end
+
+  # Returns a speed test result in megabits per second. If test is not complete, no results are present.
+  # @param [String] device_serial: the meraki serial number of the device you want to get a
+  #   a speed test for
+  # @param [String] speed_test_id: the id of the speed test you want to get results for
+  # @return [Hash] a hash containing all of the speed test attributes
+  def get_speed_test(device_serial, speed_test_id)
+    make_api_call("/devices/#{device_serial}/liveTools/speedTest/#{speed_test_id}", :get)
+  end
 end

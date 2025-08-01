@@ -44,4 +44,24 @@ module Switchports
 
     make_api_call("/devices/#{device_serial}/switch/ports/#{port_number}", :put, options)
   end
+
+  # Return the status for all the ports of a switch
+  # @param [String] device_serial: the meraki serial number of the device you want to get
+  #   port statuses for
+  # @param [Integer] timespan: the timespan for which the information will be fetched
+  # @return [Hash] an array of hashes containing all of the switch port statuses
+  def get_switch_ports_statuses_by_switch(device_serial, timespan = 86400)
+    options = { timespan: timespan }
+    make_api_call("/devices/#{device_serial}/switch/ports/statuses", :get, options)
+  end
+
+  # Cycle a set of switch ports
+  # @param [String] device_serial: the meraki serial number of the device you want to cycle
+  #   the switch ports on
+  # @param [Array] ports: array of ports to cycle
+  # @return [Hash] a hash containing all of the ports cycled
+  def cycle_device_switch_ports(device_serial, ports)
+    options = { ports: ports }
+    make_api_call("/devices/#{device_serial}/liveTools/speedTest", :post, options)
+  end
 end

@@ -209,5 +209,12 @@ module Networks
     body = { enabled: true, networkId: network_id }
     make_api_call("/organizations/#{org_id}/extensions/thousandEyes/networks", :post, body)
   end
-  
+
+  # Delete a ThousandEyes agent for this network.
+  # @param [String] org_id: dashboard organization ID
+  # @param [String] network_id: dashboard network ID
+  # @return [Array] 204 no content
+  def delete_thousandeyes_network(org_id, network_id)
+    make_api_call("/organizations/#{org_id}/extensions/thousandEyes/networks/#{network_id}", :delete)
+  end  
 end

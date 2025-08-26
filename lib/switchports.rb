@@ -62,6 +62,6 @@ module Switchports
   # @return [Hash] a hash containing all of the ports cycled
   def cycle_device_switch_ports(device_serial, ports)
     options = { ports: ports }
-    make_api_call("/devices/#{device_serial}/liveTools/speedTest", :post, options)
+    make_api_call("/devices/#{device_serial}/switch/ports/cycle", :post, options)
   end
 end

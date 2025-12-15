@@ -44,6 +44,27 @@ class DashboardAPI
 
   private
   # @private
+  # @description Send with retries
+  # @param [Symbol] http_method: HTTP method
+  # @param [String] endpoint_url: URL for the request
+  # @param [Hash] options: HTTP options for the request
+  # @return [Hash] The response
+  def send_with_retry(http_method, endpoint_url, options, max_retries: 5)
+    attempts = 0
+
+    loop do
+      attempts += 1
+      Rails.logger.warn "attempt: #{attempts}" if attempts > 1
+      response = DashboardAPI.public_send(http_method, endpoint_url, options)
+
+      return response unless response.code == 429 && attempts <= max_retries
+
+      retry_after = response.headers["Retry-After"].to_i
+      sleep(retry_after.positive? ? retry_after : 1)
+    end
+  end
+  
+  # @private
   # @description Parse the response coming back from the API
   # @param [String] response_object: The Raw JSON response from the API
   # @return [Hash] The parsed JSON response
@@ -80,15 +101,7 @@ class DashboardAPI
     options[:base_uri] = base_uri if base_uri
     options[:debug_output] = $stdout if debug_enabled
 
-    attempt = 1
-    begin
-      resource = DashboardAPI.send(http_method, endpoint_url, options)
-      raise if resource.code == 429 && attempt <= 5
-    rescue RuntimeError
-      attempt += 1
-      sleep resource.headers["Retry-After"].to_i
-      retry
-    end
+    resource = send_with_retry(http_method, endpoint_url, options)
     
     case http_method
     when :get
@@ -98,7 +111,7 @@ class DashboardAPI
         response_object = []
         response_object.concat(object)
         while (next_page = resource.links&.by_rel('next')&.target) && page_count <= pages
-          resource = DashboardAPI.send(http_method, next_page, options)
+          resource = send_with_retry(http_method, next_page, options)
           response_object.concat(parse_response!(resource))
         end
         response_object

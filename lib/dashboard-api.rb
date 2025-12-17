@@ -54,7 +54,6 @@ class DashboardAPI
 
     loop do
       attempts += 1
-      Rails.logger.warn "attempt: #{attempts}" if attempts > 1
       response = DashboardAPI.public_send(http_method, endpoint_url, options)
 
       return response unless response.code == 429 && attempts <= max_retries

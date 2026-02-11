@@ -147,4 +147,34 @@ module Organizations
 
     make_api_call("/organizations/#{org_id}/claim", :post, options)
   end
+
+  # Get firmware upgrade information for an organization
+  # @param [String] org_id organization id
+  # @param [Hash] options hash containing the query params
+  # @return [Array] array of hashes containing firmware upgrade information
+  def get_firmware_upgrades(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{org_id}/firmware/upgrades", :get, options)
+  end
+
+  # Get firmware upgrade information for an organization per device
+  # @param [String] org_id organization id
+  # @param [Hash] options hash containing the query params
+  # @return [Array] array of hashes containing firmware upgrade information per device
+  def get_firmware_upgrades_by_device(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{org_id}/firmware/upgrades/byDevice", :get, options)
+  end
+
+  # Get all health alerts for an organization
+  # @param [String] org_id organization id
+  # @param [Hash] options hash containing the query params
+  # @return [Array] array of hashes containing health alerts
+  def get_assurance_alerts(org_id, options: {})
+    raise 'Options were not passed as a Hash' unless options.is_a?(Hash)
+
+    make_api_call("/organizations/#{org_id}/assurance/alerts", :get, options)
+  end
 end

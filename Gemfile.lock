@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dashboard-api (2.1.9)
+    dashboard-api (2.1.10)
       httparty (>= 0.18.0)
       nitlink (~> 1.1)
 

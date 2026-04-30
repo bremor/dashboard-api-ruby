@@ -114,7 +114,8 @@ class DashboardAPI
         page_count = 1
         response_object = []
         response_object.concat(object)
-        while (next_page = resource.links&.by_rel('next')&.target) && page_count <= pages
+        while (next_page = resource.links&.by_rel('next')&.target) && page_count < pages
+          page_count += 1
           resource = send_with_retry(http_method, next_page, options)
           response_object.concat(parse_response!(resource))
         end

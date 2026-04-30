@@ -177,4 +177,12 @@ module Organizations
 
     make_api_call("/organizations/#{org_id}/assurance/alerts", :get, options)
   end
+
+  # View the Change Log for a given organization
+  # @param [String] org_id: dashboard organization ID
+  # @param [Hash] options: optional parameters
+  # @return [Array] an array of hashes containing the configuration changes
+  def get_organization_configuration_changes(org_id, options = {})
+    make_api_call("/organizations/#{org_id}/configurationChanges", :get, options, nil, 1)
+  end  
 end
